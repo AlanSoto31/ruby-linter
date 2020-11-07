@@ -19,4 +19,4 @@ test = Checks.new
 
 file = File.open('test_for_spec.rb')
 
-test.wrong_paren_syntax(file)
+test.curly_syn(file)

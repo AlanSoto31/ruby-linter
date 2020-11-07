@@ -38,9 +38,7 @@ describe Checks do
 
       it 'Checks if the method catch extra parentheses in several lines' do
         expect { test.paren_syn(lines_paren) }
-          .to output
-        "\"You have an extra ) in line 1\"\n\"You have an extra ( in line 2\"\n\"You have an extra ( in line 3\"\n"
-          .to_stdout
+          .to output("\"You have an extra ) in line 1\"\n\"You have an extra ( in line 2\"\n\"You have an extra ( in line 3\"\n").to_stdout
       end
     end
   end
@@ -62,29 +60,27 @@ describe Checks do
        {{{'
     end
 
-  context 'Testing curly_syn method' do
-    it 'Checks if the method read a file' do
-      expect { test.curly_syn(file) }.to output("\"You have an extra } in line 1\"\n").to_stdout
-    end
+    context 'Testing curly_syn method' do
+      it 'Checks if the method read a file' do
+        expect { test.curly_syn(file) }.to output("\"You have an extra } in line 1\"\n").to_stdout
+      end
 
-    it 'Checks if the method catch an extra opening parentheses' do
-      expect { test.curly_syn(op_paren) }.to output("\"You have an extra { in line 1\"\n").to_stdout
-    end
+      it 'Checks if the method catch an extra opening curly bracket' do
+        expect { test.curly_syn(op_paren) }.to output("\"You have an extra { in line 1\"\n").to_stdout
+      end
 
-    it 'Checks if the method catch an extra closing parentheses' do
-      expect { test.curly_syn(cl_paren) }.to output("\"You have an extra } in line 1\"\n").to_stdout
-    end
+      it 'Checks if the method catch an extra closing curly bracket' do
+        expect { test.curly_syn(cl_paren) }.to output("\"You have an extra } in line 1\"\n").to_stdout
+      end
 
-    it 'Checks if the method catch a closing parentheses before an opening parentheses' do
-      expect { test.curly_syn(order_paren) }.to output("\"You have an extra } in line 1\"\n").to_stdout
-    end
+      it 'Checks if the method catch a closing curly bracket before an opening curly bracket' do
+        expect { test.curly_syn(order_paren) }.to output("\"You have an extra } in line 1\"\n").to_stdout
+      end
 
-    it 'Checks if the method catch extra parentheses in several lines' do
-      expect { test.curly_syn(lines_paren) }
-        .to output
-      "\"You have an extra } in line 1\"\n\"You have an extra ( in line 2\"\n\"You have an extra { in line 3\"\n"
-        .to_stdout
+      it 'Checks if the method catch extra curly brackets in several lines' do
+        expect { test.curly_syn(lines_paren) }
+          .to output("\"You have an extra } in line 1\"\n\"You have an extra { in line 2\"\n\"You have an extra { in line 3\"\n").to_stdout
+      end
     end
   end
-end
 end
