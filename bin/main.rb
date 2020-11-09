@@ -17,6 +17,10 @@ require_relative '../lib/checks'
 
 test = Checks.new
 
-file = File.open('test_for_spec.rb')
+file = File.open('test.rb')
 
-test.curly_syn(file)
+test.paren_syn(file)
+
+#file.each_line.with_index do |line, index| 
+#  p "#{index+1} #{line}"
+#end
