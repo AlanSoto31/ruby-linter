@@ -26,12 +26,12 @@ describe Checks do
       ((('
     end
 
-    let(:ok) { '()' }
+    let(:ok_paren) { '()' }
 
     context 'Testing paren_syn method' do
       it 'Checks if the method read a file' do
         expect { test.paren_syn(file) }
-          .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token (\e[0m\n\e[0;31;49mline:1 Lint/Syntax: unexpected token )\e[0m\n").to_stdout
+          .to output("\e[0;32;49mNo offenses\e[0m\n").to_stdout
       end
 
       it 'Checks if the method catch an extra opening parentheses' do
@@ -58,10 +58,6 @@ describe Checks do
         expect { test.paren_syn(lines_w_str) }
           .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token )\e[0m\n\e[0;31;49mline:4 Lint/Syntax: unexpected token (\e[0m\n").to_stdout
       end
-
-      it 'Checks if the method works when the is no offenses' do
-        expect { test.paren_syn(ok) }.to output("\e[0;32;49mNo offenses\e[0m\n").to_stdout
-      end
     end
   end
 
@@ -84,15 +80,15 @@ describe Checks do
       end
 
       it 'Checks if the method read a file' do
-        expect { test.doend_syn(file) }.to output("").to_stdout
+        expect { test.doend_syn(file) }.to output("\e[0;32;49mNo offenses\e[0m\n").to_stdout
       end
 
       it 'Checks if the method cath an extra end' do
-        expect { test.doend_syn(ending_keyword) }.to output("").to_stdout
+        expect { test.doend_syn(ending_keyword) }.to output("\e[0;31;49mline: 3 unexpected end\e[0m\n").to_stdout
       end
 
-      it 'Checks if the method cath starting key words' do
-        expect { test.doend_syn(starting_keywords) }.to output("").to_stdout
+      it 'Checks if the method cath extra starting key words' do
+        expect { test.doend_syn(starting_keywords) }.to output("\e[0;31;49mline: 4 unexpected starting keyword (do-if-while-def)\e[0m\n").to_stdout
       end
     end
   end

@@ -25,6 +25,42 @@ class Checks
     end
     puts 'No offenses'.colorize(:green) if @no_offenses
   end
+
+  def doend_syn(file)
+    sc = []
+    ec = []
+    file.each_line.with_index do |line, index|
+  
+      line = line.gsub(/".*?"/, '')
+      line = line.gsub(/\/.*?\//, '')
+  
+     starting = line.scan(/\b(do|if|while|def)\b/)
+     ending = line.scan(/end/)
+  
+     p "line: #{index + 1} starting keyword (do-if-while-def)".colorize(:red)  if starting.length > 1
+  
+        if !starting.empty? 
+          i = starting.length
+          while i.positive? 
+            sc.push(index + 1)
+            i -= 1
+          end
+        end
+  
+        if !ending.empty? 
+          i = ending.length
+          while i.positive?
+            ec.push(index + 1)
+            i -= 1
+          end
+        end
+  
+    end
+    count = sc.length <=> ec.length
+    puts "line: #{sc.last()} unexpected starting keyword (do-if-while-def)".colorize(:red)  if count.positive?
+    puts "line: #{ec.last()} unexpected end".colorize(:red)  if count.negative?
+    puts 'No offenses'.colorize(:green) if count == 0
+  end
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity

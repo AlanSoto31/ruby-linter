@@ -6,4 +6,4 @@ test = Checks.new
 
 file = File.open('test.rb')
 
-test.paren_syn(file)
+test.doend_syn(file)
