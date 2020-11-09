@@ -3,7 +3,7 @@ def paren_syn(file)
     count = 0
     line.each_char do |char|
       if char.match(/[(]/)
-        count += 1 
+        count += 1
       elsif char.match(/[)]/) && count.zero?
         p "You have an extra ) in line #{index + 1}"
         break
@@ -18,4 +18,3 @@ def paren_syn(file)
     end
   end
 end
-
