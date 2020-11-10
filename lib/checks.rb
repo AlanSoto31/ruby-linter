@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
 require 'colorize'
 
@@ -24,7 +24,7 @@ class Checks
 
       puts "line:#{index + 1} Lint/Syntax: unexpected token (".colorize(:red) if @count.positive?
       puts "line:#{index + 1} Lint/Syntax: unexpected token )".colorize(:red) if @count.negative? && @co_par.empty?
-      puts "line:#{index + 1} Lint/Syntax: unexpected token )".colorize(:red) if !@co_par.empty?
+      puts "line:#{index + 1} Lint/Syntax: unexpected token )".colorize(:red) unless @co_par.empty?
     end
     puts 'No offenses'.colorize(:green) if @no_offenses
   end
@@ -32,26 +32,25 @@ class Checks
   def doend_syn(fil)
     sc = []
     ec = []
-    
+
     fil.each_line.with_index do |line, index|
-  
       line = line.gsub(/".*?"/, '')
-      line = line.gsub(/\/.*?\//, '')
+      line = line.gsub(%r{/.*?/}, '')
 
       starting = line.scan(/\b(do|if|while|def)\b/)
       ending = line.scan(/end/)
 
-      puts "line:#{index + 1} Lint/Syntax: unexpected token (do-if-while-def)".colorize(:red)  if starting.length > 1
-          
-      if !starting.empty? 
+      puts "line:#{index + 1} Lint/Syntax: unexpected token (do-if-while-def)".colorize(:red) if starting.length > 1
+
+      unless starting.empty?
         i = starting.length
-        while i.positive? 
+        while i.positive?
           sc.push(index + 1)
           i -= 1
         end
       end
 
-      if !ending.empty? 
+      unless ending.empty?
         i = ending.length
         while i.positive?
           ec.push(index + 1)
@@ -60,10 +59,10 @@ class Checks
       end
     end
     @counts = sc.length <=> ec.length
-    puts "line:#{sc.last()} Lint/Syntax: unexpected token (do-if-while-def)".colorize(:red)  if @counts.positive?
-    puts "line:#{ec.last()} Lint/Syntax: unexpected token end".colorize(:red)  if @counts.negative?
-    puts 'No offenses'.colorize(:green) if @counts == 0
+    puts "line:#{sc.last} Lint/Syntax: unexpected token (do-if-while-def)".colorize(:red) if @counts.positive?
+    puts "line:#{ec.last} Lint/Syntax: unexpected token end".colorize(:red) if @counts.negative?
+    puts 'No offenses'.colorize(:green) if @counts.zero?
   end
 end
 
-# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength

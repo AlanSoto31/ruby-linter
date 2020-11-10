@@ -1,10 +1,11 @@
-def paren_syn(file)(
+# rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+
+def paren_syn(file)
   file.each_line.with_index do |line, index|
     count = 0
     line.each_char do |char|
       if char.match(/[(]/)
         count += 1
-)
       elsif char.match(/[)]/) && count.zero?
         p "You have an extra ) in line #{index + 1}"
         break
@@ -19,5 +20,5 @@ def paren_syn(file)(
     end
   end
 end
-end
-end
+
+# rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity

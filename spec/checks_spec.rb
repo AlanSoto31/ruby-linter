@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable Layout/LineLength
 
 require '../lib/checks'
 
@@ -6,7 +6,6 @@ describe Checks do
   let(:test) { Checks.new }
   let(:file) { File.open('test_spec.rb') }
   describe '#paren_syn' do
-
     let(:op_paren) { '(()' }
 
     let(:cl_paren) { ')()' }
@@ -91,4 +90,5 @@ describe Checks do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
+
+# rubocop:enable Layout/LineLength
