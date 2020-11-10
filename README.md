@@ -11,22 +11,23 @@
 ## Table of Contents
 - [❌About ruby-linter⭕](#about-ruby-linter )
 - [📐 About The Project](#about-the-project)
-- [📝 Linter Instructions](#linter-instructions)
+- [📝 Linter examples](#linter-examples)
 - [[Ruby](#built-with)
-- [🖥️ Setup for starting Tic Tac Toe](#setup-ruby-linter)
+- [🖥️ Setup for starting ruby linter](#setup-ruby-linter)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [💻 Run Tic-Tac-Toe](#ruby-linter)
+- [💻 Run ruby linter](#ruby-linter)
   - [Windows](#windows)
   - [Mac and Linux](#mac-and-linux)
+  - [testing your own code](#testing-your-own-code)
 - [👥 Authors](#authors)
 - [🤝 Contributing](#-contributing)
 - [⭐ Show your support](#show-your-support)
 
 ## about-ruby-linter 
  Ruby-linter was created with the intention of catching some syntax common errors in ruby files, such errors are:
- - Un expectected use of parenthesis
- - Un expectected use of ends 
+ - Unexpectected use of parenthesis
+ - Unexpectected use of ends 
 
 <hr>
 
@@ -42,9 +43,18 @@ The goals of this project are:
 - Practice to use of regex.
 - Learn how to read whole files.
 
-## Linter-instructions
+## linter-examples
 
-![screenshot](examples_pics/ex1.png)
+Examples of a bad and good use of parentheses
+
+![Example 1](/examples/ex1.png)
+![Example 2](/examples/ex2.png)
+![Example 3](/examples/ex3.png)
+
+Examples of a bad and good use of do/if/while/def with end
+
+![Example 4](/examples/ex4.png)
+![Example 5](/examples/ex5.png)
 
 ## built-with
 
@@ -61,7 +71,6 @@ Internet browser: Firefox, Google Chrome, Opera...
 Have Ruby installed you can see this link for more detailed instructions [Install Ruby](https://www.theodinproject.com/courses/web-development-101/lessons/installing-ruby)
 
 ### installation
-
 You MUST have Ruby installed in your system. If you don't have it installed you can go this page [Install Ruby](https://www.theodinproject.com/courses/web-development-101/lessons/installing-ruby)
 
 After installing ruby, you can download the repo or clone it (paste on the terminal) `git@github.com:AlanSoto31/ruby-linter.git`
@@ -77,7 +86,14 @@ Open the terminal and navigate to the folder using `cd path-to-folder` containin
 
 Most Mac and some of Linux computers come with ruby installed, but still need to verify by typing in your terminal `ruby --version` if not please go back to [Installation](#installation) section.
 
-After verifying you have ruby installed and completing the [Installation](#installation) section, open the terminal navigate using `cd path-to-folder` containing the ruby-linter and run in the terminal `ruby bin/main.rb` to run the game.
+After verifying you have ruby installed and completing the [Installation](#installation) section, open the terminal navigate using `cd path-to-folder` containing the ruby-linter and run in the terminal `ruby bin/main.rb` to run the linter.
+
+## testing-your-own-code
+
+After running main.rb you are going to see a demonstration of what the linter is going to catch, opening test.rb file automatically, in order to parse a different piece of code, you have two ways:
+
+1.- Copy and paste the code you want to test inside test.rb file
+2.- Replace the test.rb file with you own file but remember to keep "test" as file's name
 
 ## 👥 authors
 
