@@ -20,5 +20,4 @@ def paren_syn(file)
     end
   end
 end
-
 # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
