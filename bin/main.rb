@@ -1,9 +1,11 @@
 require_relative '../lib/checks'
 
-require 'colorize'
-
 test = Checks.new
 
 file = File.open('test.rb')
 
-test.doend_syn(file)
+test.paren_syn(file)
+
+fil = File.open('test.rb')
+
+test.doend_syn(fil)

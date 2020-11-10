@@ -44,7 +44,7 @@ The goals of this project are:
 
 ## Linter-instructions
 
-![screenshot](examples_pic/ex_1.png)
+![screenshot](examples_pics/ex1.png)
 
 ## built-with
 

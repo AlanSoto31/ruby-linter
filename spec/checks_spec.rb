@@ -82,11 +82,11 @@ describe Checks do
       end
 
       it 'Checks if the method cath an extra end' do
-        expect { test.doend_syn(ending_keyword) }.to output("\e[0;31;49mline: 3 unexpected end\e[0m\n").to_stdout
+        expect { test.doend_syn(ending_keyword) }.to output("\e[0;31;49mline:3 Lint/Syntax: unexpected token end\e[0m\n").to_stdout
       end
 
       it 'Checks if the method cath extra starting key words' do
-        expect { test.doend_syn(starting_keywords) }.to output("\e[0;31;49mline: 4 unexpected starting keyword (do-if-while-def)\e[0m\n").to_stdout
+        expect { test.doend_syn(starting_keywords) }.to output("\e[0;31;49mline:4 Lint/Syntax: unexpected token (do-if-while-def)\e[0m\n").to_stdout
       end
     end
   end
