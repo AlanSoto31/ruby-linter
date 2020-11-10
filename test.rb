@@ -1,6 +1,6 @@
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
-def paren_syn(file)
+def paren_syn((file)
   file.each_line.with_index do |line, index|
     count = 0
     line.each_char do |char|

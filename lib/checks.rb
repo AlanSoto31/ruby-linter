@@ -1,38 +1,33 @@
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
-require 'colorize'
-
 class Checks
-  def initialize; end
+  attr_accessor :err
+
+  def initialize
+    @err = {}
+  end
 
   def paren_syn(file)
-    @no_offenses = true
-    @open_par = []
-    @close_par = []
-    @co_par = []
     file.each_line.with_index do |line, index|
       line = line.gsub(/".*?"/, '')
       line = line.gsub(%r{/.*?/}, '')
 
-      @open_par = line.scan(/\(/)
-      @close_par = line.scan(/\)/)
-      @co_par = line.scan(/\)\(/)
+      open_par = line.scan(/\(/)
+      close_par = line.scan(/\)/)
+      co_par = line.scan(/\)\(/)
 
-      @count = @open_par.length <=> @close_par.length
+      count = open_par.length <=> close_par.length
 
-      @no_offenses = false if @count != 0
-
-      puts "line:#{index + 1} Lint/Syntax: unexpected token (".colorize(:red) if @count.positive?
-      puts "line:#{index + 1} Lint/Syntax: unexpected token )".colorize(:red) if @count.negative? && @co_par.empty?
-      puts "line:#{index + 1} Lint/Syntax: unexpected token )".colorize(:red) unless @co_par.empty?
+      @err.store((index + 1), "(") if count.positive?
+      @err.store((index + 1), ")") if count.negative?
+      @err.store((index + 1), ")") unless co_par.empty?
     end
-    puts 'No offenses'.colorize(:green) if @no_offenses
+    @err
   end
 
   def doend_syn(fil)
     sc = []
     ec = []
-
     fil.each_line.with_index do |line, index|
       line = line.gsub(/".*?"/, '')
       line = line.gsub(%r{/.*?/}, '')
@@ -58,11 +53,11 @@ class Checks
         end
       end
     end
-    @counts = sc.length <=> ec.length
-    puts "line:#{sc.last} Lint/Syntax: unexpected token (do-if-while-def)".colorize(:red) if @counts.positive?
-    puts "line:#{ec.last} Lint/Syntax: unexpected token end".colorize(:red) if @counts.negative?
-    puts 'No offenses'.colorize(:green) if @counts.zero?
+    counts = sc.length <=> ec.length
+    @err.store(sc.last, "(do-if-while-def)") if counts.positive?
+    @err.store(ec.last, "end") if counts.negative?
   end
+  @err
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
