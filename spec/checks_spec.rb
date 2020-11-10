@@ -1,8 +1,8 @@
-require '../lib/checks'
+require_relative '../lib/checks'
 
 describe Checks do
   let(:test) { Checks.new }
-  let(:file) { File.open('test_spec.rb') }
+  let(:file) { File.open('spec/read_file.rb') }
   describe '#paren_syn' do
     let(:op_paren) { '(()' }
 
