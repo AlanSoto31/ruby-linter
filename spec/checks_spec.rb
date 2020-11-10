@@ -1,5 +1,3 @@
-# rubocop:disable Layout/LineLength
-
 require '../lib/checks'
 
 describe Checks do
@@ -29,33 +27,27 @@ describe Checks do
 
     context 'Testing paren_syn method' do
       it 'Checks if the method read a file' do
-        expect { test.paren_syn(file) }
-          .to output("\e[0;32;49mNo offenses\e[0m\n").to_stdout
+        expect(test.paren_syn(file)).to eql({})
       end
 
       it 'Checks if the method catch an extra opening parentheses' do
-        expect { test.paren_syn(op_paren) }
-          .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token (\e[0m\n").to_stdout
+        expect(test.paren_syn(op_paren)).to eql({ 1 => '(' })
       end
 
       it 'Checks if the method catch an extra closing parentheses' do
-        expect { test.paren_syn(cl_paren) }
-          .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token )\e[0m\n").to_stdout
+        expect(test.paren_syn(cl_paren)).to eql({ 1 => ')' })
       end
 
       it 'Checks if the method catch a closing parentheses before an opening parentheses' do
-        expect { test.paren_syn(order_paren) }
-          .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token )\e[0m\n\e[0;32;49mNo offenses\e[0m\n").to_stdout
+        expect(test.paren_syn(order_paren)).to eql({ 1 => ')' })
       end
 
       it 'Checks if the method catch extra parentheses in several lines' do
-        expect { test.paren_syn(lines_paren) }
-          .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token )\e[0m\n\e[0;31;49mline:2 Lint/Syntax: unexpected token (\e[0m\n\e[0;31;49mline:3 Lint/Syntax: unexpected token (\e[0m\n").to_stdout
+        expect(test.paren_syn(lines_paren)).to eql({ 1 => ')', 2 => '(', 3 => '(' })
       end
 
       it 'Checks if the method avoid to catch parentheses in a string and in a regex' do
-        expect { test.paren_syn(lines_w_str) }
-          .to output("\e[0;31;49mline:1 Lint/Syntax: unexpected token )\e[0m\n\e[0;31;49mline:4 Lint/Syntax: unexpected token (\e[0m\n").to_stdout
+        expect(test.paren_syn(lines_w_str)).to eql({ 1 => ')', 4 => '(' })
       end
     end
   end
@@ -77,18 +69,16 @@ describe Checks do
       end
 
       it 'Checks if the method read a file' do
-        expect { test.doend_syn(file) }.to output("\e[0;32;49mNo offenses\e[0m\n").to_stdout
+        expect(test.doend_syn(file)).to eql({})
       end
 
       it 'Checks if the method cath an extra end' do
-        expect { test.doend_syn(ending_keyword) }.to output("\e[0;31;49mline:3 Lint/Syntax: unexpected token end\e[0m\n").to_stdout
+        expect(test.doend_syn(ending_keyword)).to eql({ 3 => 'end' })
       end
 
       it 'Checks if the method cath extra starting key words' do
-        expect { test.doend_syn(starting_keywords) }.to output("\e[0;31;49mline:4 Lint/Syntax: unexpected token (do-if-while-def)\e[0m\n").to_stdout
+        expect(test.doend_syn(starting_keywords)).to eql({ 4 => '(do-if-while-def)' })
       end
     end
   end
 end
-
-# rubocop:enable Layout/LineLength

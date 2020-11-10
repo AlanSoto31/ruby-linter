@@ -18,9 +18,9 @@ class Checks
 
       count = open_par.length <=> close_par.length
 
-      @err.store((index + 1), "(") if count.positive?
-      @err.store((index + 1), ")") if count.negative?
-      @err.store((index + 1), ")") unless co_par.empty?
+      @err.store((index + 1), '(') if count.positive?
+      @err.store((index + 1), ')') if count.negative?
+      @err.store((index + 1), ')') unless co_par.empty?
     end
     @err
   end
@@ -35,7 +35,7 @@ class Checks
       starting = line.scan(/\b(do|if|while|def)\b/)
       ending = line.scan(/end/)
 
-      puts "line:#{index + 1} Lint/Syntax: unexpected token (do-if-while-def)".colorize(:red) if starting.length > 1
+      @err.store((index + 1), '(do-if-while-def)') if starting.length > 1
 
       unless starting.empty?
         i = starting.length
@@ -54,10 +54,10 @@ class Checks
       end
     end
     counts = sc.length <=> ec.length
-    @err.store(sc.last, "(do-if-while-def)") if counts.positive?
-    @err.store(ec.last, "end") if counts.negative?
+    @err.store(sc.last, '(do-if-while-def)') if counts.positive?
+    @err.store(ec.last, 'end') if counts.negative?
+    @err
   end
-  @err
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
