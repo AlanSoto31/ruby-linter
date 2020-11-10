@@ -18,8 +18,3 @@ def paren_syn(file)
     end
   end
 end
-do
-if
-while
-def
-end

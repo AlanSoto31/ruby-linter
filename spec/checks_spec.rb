@@ -4,8 +4,8 @@ require '../lib/checks'
 
 describe Checks do
   let(:test) { Checks.new }
+  let(:file) { File.open('test_spec.rb') }
   describe '#paren_syn' do
-    let(:file) { File.open('test_spec.rb') }
 
     let(:op_paren) { '(()' }
 
@@ -63,8 +63,6 @@ describe Checks do
 
   describe '#doend_syn' do
     context '' do
-      let(:file) { File.open('test_spec.rb') }
-
       let(:ending_keyword) do
         'do
         end
