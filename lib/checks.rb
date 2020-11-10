@@ -1,7 +1,7 @@
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
 class Checks
-  attr_accessor :err
+  attr_reader :err
 
   def initialize
     @err = {}
